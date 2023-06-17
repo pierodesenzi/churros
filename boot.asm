@@ -38,7 +38,6 @@ print_char:
     int 0x10; trigger the operation call to BIOS (x86)
     ret
 
-message: db '0000000000111111111122222222223333333333444444444455555555556666666666', 0
-;message: db 'churrOS (c)2023', 0
+message: db 'churrOS (c)2023', 0
 times 510-($ - $$) db 0; fill next unused bytes with 0 until 510th
 dw 0xAA55; DefineWord: 0xAA55 is the signature for the bootloader
