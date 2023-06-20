@@ -5,14 +5,14 @@ CODE_SEG equ gdt_code - gdt_start
 DATA_SEG equ gdt_data - gdt_start
 
 _start:
-    jmp short pre_start
+    jmp short start
     nop
 
 times 33 db 0
-pre_start:
-    jmp 0:start
-
 start:
+    jmp 0:step2
+
+step2:
     cli; clears interrupts
     mov ax, 0x00
     mov ds, ax; set Data Segment as 0x7c0 through ax (direct set not possible)
@@ -117,13 +117,12 @@ ata_lba_read:
 
 ; We need to read 256 words at a time
     mov ecx, 256
-    mov dx, 0x
+    mov dx, 0x1F0
     rep insw; repeat 256 (ecx) times
     pop ecx
     loop .next_sector
     ret; all over
 
 
-message: db 'churrOS (c)2023', 0
 times 510-($ - $$) db 0; fill next unused bytes with 0 until 510th
 dw 0xAA55; DefineWord: 0xAA55 is the signature for the bootloader
