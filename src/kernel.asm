@@ -19,3 +19,5 @@ _start:
     out 0x92, al
 
     jmp $
+
+times 512-($ - $$) db 0; fill next unused bytes with 0 until 510th

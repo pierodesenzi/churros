@@ -68,12 +68,12 @@ load32:
     jmp CODE_SEG:0x0100000
 
 ata_lba_read:
-    mov ebx, eax, ; Backup the LBA
+    mov ebx, eax, ; Backup the LBA on EBX
     ; send highest 8 bits of the LBA to hard disk controller
     shr eax, 24
     or eax, 0xE0; selects the master drive
     mov dx, 0x1F6
-    out dx, al
+    out dx, al; outputs as IO (out) with a code (dx) the 8 less significant bits (AL) of 16-bit AL, i.e the least significant 8 bits of 32-bit EAX.
     ; finished sending the highest 8 bits of the LBA
 
     ; send total sectors to read
