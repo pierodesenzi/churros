@@ -11,7 +11,6 @@ idt_load:
     push ebp
     mov ebp, esp
 
-
     mov ebx, [ebp+8]
     lidt [ebx]; load IDT
 
