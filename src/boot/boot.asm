@@ -1,8 +1,8 @@
 ORG 0x7c00; start of the code segment
 BITS 16; only 16 bit code
 
-CODE_SEG equ gdt_code - gdt_start
-DATA_SEG equ gdt_data - gdt_start
+CODE_SEG equ gdt_code - gdt_start; Selector
+DATA_SEG equ gdt_data - gdt_start; Selector
 
 _start:
     jmp short start
