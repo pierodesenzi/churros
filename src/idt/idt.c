@@ -12,7 +12,8 @@ extern void int21h();
 extern void no_interrupt();
 
 void int21h_handler(){
-    print("KEYBOARD PRESSED\n");
+    terminal_set_marker(20, 20);
+    printp("plis no press :(", 4);
     outb(0x20, 0x20); // done "handling"
 }
 

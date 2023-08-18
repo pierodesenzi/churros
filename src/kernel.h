@@ -6,5 +6,7 @@
 
 void kernel_main();
 void print(const char* str);
+void printp(const char* str, char colour);
+void terminal_set_marker(int x, int y);
 
 #endif

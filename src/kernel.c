@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include "idt/idt.h"
 #include "io/io.h"
+#include "memory/heap/kheap.h"
 
 
 uint16_t* video_mem = 0;
@@ -119,9 +120,12 @@ void display_funky_intro(int times){
     terminal_set_marker(0, 0);
 }
 
+
 void kernel_main(){
+    kheap_init(); // initialize heap
     terminal_initialize();
-    //display_funky_intro(500);
     idt_init();
+    display_funky_intro(10);
+
     
 }
