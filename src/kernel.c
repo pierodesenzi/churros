@@ -4,6 +4,7 @@
 #include "idt/idt.h"
 #include "io/io.h"
 #include "memory/heap/kheap.h"
+#include "memory/paging/paging.h"
 
 
 uint16_t* video_mem = 0;
@@ -120,12 +121,15 @@ void display_funky_intro(int times){
     terminal_set_marker(0, 0);
 }
 
-
+static struct paging_4gb_chunk* kernel_chunk = 0;
 void kernel_main(){
     kheap_init(); // initialize heap
     terminal_initialize();
     idt_init();
-    display_funky_intro(10);
-
+    kernel_chunk = paging_new_4gb(PAGING_IS_WRITEABLE | PAGING_IS_PRESENT | PAGING_ACCESS_FROM_ALL);
+    paging_switch(paging_4gb_chunk_get_directory(kernel_chunk));
+    enable_paging();
+    enable_interrupts();
+    display_funky_intro(10000);
     
 }

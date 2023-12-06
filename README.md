@@ -1,3 +1,5 @@
+Welcome to churrOS, a lightweigth x86 OS!
+
 ```
           |                                       #########   ##########
           |                                      ###########  ##########
