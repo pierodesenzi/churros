@@ -21,6 +21,26 @@ step2:
     mov sp, 0x7c00; set Stack Pointer
     sti; enables interrupts
 
+draw_pixel:
+    ; setting mode 13h (320x200, 256 colours)
+    mov ah, 00h
+    mov al, 13h
+    int 10h
+
+    ; drawing pixel and setting colour
+    mov ah, 0ch
+    mov cx, 160
+    mov dx, 100
+    mov al, 4
+    int 10h
+
+    ; drawing pixel and setting colour
+    mov cx, 180
+    mov dx, 120
+    int 10h
+
+    jmp draw_pixel
+
 .load_protected:
     cli
     lgdt[gdt_descriptor]

@@ -2,6 +2,7 @@
 #include "config.h"
 #include "kernel.h"
 #include "memory/memory.h"
+#include "graphics/graphics.h"
 #include "io/io.h"
 
 struct idt_desc idt_descriptors[TOTAL_INTERRUPTS];
@@ -9,11 +10,19 @@ struct idtr_desc idtr_descriptor;
 
 extern void idt_load(struct idtr_desc* ptr);
 extern void int21h();
+extern void int10h();
 extern void no_interrupt();
 
 void int21h_handler(){
+    //terminal_set_marker(20, 20);
+    //printp("plis no press :(", 4);
+    //outb(0x20, 0x20); // done "handling"
+    draw_pixel();
+}
+
+void int10h_handler(){
     terminal_set_marker(20, 20);
-    printp("plis no press :(", 4);
+    printp("pixel?", 4);
     outb(0x20, 0x20); // done "handling"
 }
 
@@ -45,6 +54,7 @@ void idt_init(){ //RECHECK
 
     idt_set(0, idt_zero);
     idt_set(0x21, int21h);
+    idt_set(0x10, int10h);
 
     idt_load(&idtr_descriptor);
 }
