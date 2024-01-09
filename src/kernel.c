@@ -6,6 +6,8 @@
 #include "disk/disk.h"
 #include "memory/heap/kheap.h"
 #include "memory/paging/paging.h"
+#include "fs/path_parser.h"
+#include "string/string.h"
 
 
 uint16_t* video_mem = 0;
@@ -59,15 +61,6 @@ void terminal_erase_height(int start, int size){
             terminal_putchar(x, y, ' ', 0);
         }
     }
-}
-
-size_t strlen(const char* str){
-    size_t len = 0;
-    while (str[len]){
-        len++;
-    }
-    return len;
-    
 }
 
 void printp(const char* str, char colour){
